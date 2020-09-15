@@ -16,14 +16,13 @@ const proto = grpc.loadPackageDefinition(packageDefinition).candidate;
 const URL = "0.0.0.0:8081"
 
 async function getCandidateRejectionStatus (call, callback) {
-    console.log(call.request.gender)
-    isCandidateAutoRejected(call.request.gender).then(r=>{
-        
-    })
-    .catch(err=>{})
+    const status = await isCandidateAutoRejected({ gender: call.request.gender })
+    if(!status) status = false
+    .catch(error=>{ console.log(error) })
+    console.log('status is ', status)
     callback(null, 
       {
-         rejectionStatus: 'status'
+         isRejected: status
       })
   }
 function main(){
