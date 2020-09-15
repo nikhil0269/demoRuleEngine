@@ -1,0 +1,14 @@
+syntax = "proto3";
+package candidate;
+
+message Candidate {
+string gender = 1;
+}
+
+message response {
+    bool isRejected = 1;
+}
+
+service AutoRejectionService {
+ rpc getCandidateRejectionStatus(Candidate) returns (response) {};
+}
